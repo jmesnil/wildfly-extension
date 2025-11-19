@@ -11,7 +11,7 @@ import org.jboss.logging.annotations.MessageLogger;
 
 import org.jboss.logging.BasicLogger;
 
-@MessageLogger(projectCode = "ACME", length = 4)
+@MessageLogger(projectCode = "XXX", length = 4)
 public interface SubsystemLogger extends BasicLogger {
 
     SubsystemLogger LOGGER = Logger.getMessageLogger(MethodHandles.lookup(), SubsystemLogger.class, "com.acme.subsystem");

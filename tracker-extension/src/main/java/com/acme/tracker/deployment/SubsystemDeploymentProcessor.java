@@ -14,8 +14,6 @@ import org.wildfly.subsystem.service.ServiceInstaller;
  * An example deployment unit processor that does nothing. To add more deployment
  * processors copy this class, and register it with the deployment chain via
  * {@link ${package}.SubsystemResourceDefinitionRegistrar${hash}accept(org.jboss.as.server.DeploymentProcessorTarget)}
- *
- * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
 
@@ -35,20 +33,15 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
 
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-        DeploymentUnit deploymentUnit = phaseContext.getDeploymentUnit();
-        this.logger.infof("Deploying %s", deploymentUnit.getName());
-
         // Install a service that depends on the TrackerService
         ServiceInstaller.builder(ServiceDependency.on(SubsystemResourceDefinitionRegistrar.SERVICE_DESCRIPTOR))
-            .onStart(service -> service.deployments.incrementAndGet())
-            .onStop(service -> service.deployments.decrementAndGet())
+            .onStart(service -> {
+                service.deployments.incrementAndGet();
+            })
+            .onStop(service -> {
+                service.deployments.decrementAndGet();
+            })
             .build()
             .install(phaseContext);
-    }
-
-    @Override
-    public void undeploy(DeploymentUnit unit) {
-        this.logger.infof("Undeploying %s", unit.getName());
-        // The service will be stopped automatically
     }
 }

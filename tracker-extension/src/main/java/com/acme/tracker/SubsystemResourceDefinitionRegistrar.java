@@ -50,7 +50,6 @@ import org.wildfly.subsystem.service.capture.ServiceValueExecutorRegistry;
 
 /**
  * Registers the resource definition of this subsystem.
- * @author Paul Ferraro
  */
 public class SubsystemResourceDefinitionRegistrar implements org.wildfly.subsystem.resource.SubsystemResourceDefinitionRegistrar, Consumer<DeploymentProcessorTarget>, ResourceServiceConfigurator {
 
@@ -106,13 +105,11 @@ public class SubsystemResourceDefinitionRegistrar implements org.wildfly.subsyst
         // Registers the attributes, operations, and capabilities of this resource based on our descriptor
         ManagementResourceRegistrar.of(descriptor).register(registration);
 
-        FunctionExecutorRegistry<TrackerService> executors = this.registry;
-
         // Register the DEPLOYMENTS attribute with a custom read handler
         registration.registerReadOnlyAttribute(DEPLOYMENTS, new AbstractRuntimeOnlyHandler() {
             @Override
             protected void executeRuntimeStep(OperationContext context, ModelNode operation) {
-                FunctionExecutor<TrackerService> executor = executors.getExecutor(ServiceDependency.on(SERVICE_DESCRIPTOR));
+                FunctionExecutor<TrackerService> executor = registry.getExecutor(ServiceDependency.on(SERVICE_DESCRIPTOR));
                 context.getResult().set(executor != null ? executor.execute(TRACKED_DEPLOYMENTS).longValue() : 0L);
             }
         });
@@ -138,7 +135,7 @@ public class SubsystemResourceDefinitionRegistrar implements org.wildfly.subsyst
                 .requires(executor)
                 .startWhen(AVAILABLE)
                 .onStop(TrackerService::stop)
-                .withCaptor(this.registry.add(ServiceDependency.on(SERVICE_DESCRIPTOR)))
+                .withCaptor(registry.add(ServiceDependency.on(SERVICE_DESCRIPTOR)))
                 .build();
     }
 }
