@@ -42,8 +42,8 @@ public class SubsystemParsingTestCase extends AbstractSubsystemTest {
     public void testParseSubsystem() throws Exception {
         //Parse the subsystem xml into operations
         String subsystemXml = """
-<subsystem xmlns="urn:com.acme:tracker:1.0"
-     executor="default" />""";
+                <subsystem xmlns="urn:com.acme:tracker:1.0"
+                     executor="default" />""";
         List<ModelNode> operations = super.parse(subsystemXml);
 
         ///Check that we have the expected number of operations
@@ -66,9 +66,9 @@ public class SubsystemParsingTestCase extends AbstractSubsystemTest {
     public void testInstallIntoController() throws Exception {
         //Parse the subsystem xml and install into the controller
         String subsystemXml = """
-<subsystem xmlns="urn:com.acme:tracker:1.0"
-    tick="4"
-    executor="default" />""";
+                <subsystem xmlns="urn:com.acme:tracker:1.0"
+                    tick="4"
+                    executor="default" />""";
         KernelServices services = super.createKernelServicesBuilder(this.initialization).setSubsystemXml(subsystemXml).build();
 
         //Read the whole model and make sure it looks as expected
@@ -84,9 +84,9 @@ public class SubsystemParsingTestCase extends AbstractSubsystemTest {
     public void testParseAndMarshalModel() throws Exception {
         //Parse the subsystem xml and install into the first controller
         String subsystemXml = """
-<subsystem xmlns="urn:com.acme:tracker:1.0"
-     tick="4"
-     executor="default" />""";
+                <subsystem xmlns="urn:com.acme:tracker:1.0"
+                     tick="4"
+                     executor="default" />""";
         KernelServices servicesA = super.createKernelServicesBuilder(this.initialization).setSubsystemXml(subsystemXml).build();
         //Get the model and the persisted xml from the first controller
         ModelNode modelA = servicesA.readWholeModel();
@@ -107,8 +107,8 @@ public class SubsystemParsingTestCase extends AbstractSubsystemTest {
     public void testSubsystemRemoval() throws Exception {
         //Parse the subsystem xml and install into the first controller
         String subsystemXml = """
-<subsystem xmlns="urn:com.acme:tracker:1.0"
-    executor="default"/>""";
+                <subsystem xmlns="urn:com.acme:tracker:1.0"
+                    executor="default"/>""";
         KernelServices services = super.createKernelServicesBuilder(this.initialization).setSubsystemXml(subsystemXml).build();
         //Checks that the subsystem was removed from the model
         assertRemoveSubsystemResources(services);

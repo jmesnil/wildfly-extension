@@ -14,7 +14,6 @@ import org.jboss.staxmapper.IntVersion;
 
 /**
  * Enumerates the XML schema namespaces for this subsystem.
- * @author Paul Ferraro
  */
 public enum SubsystemSchema implements SubsystemResourceXMLSchema<SubsystemSchema> {
     VERSION_1_0(1, 0);

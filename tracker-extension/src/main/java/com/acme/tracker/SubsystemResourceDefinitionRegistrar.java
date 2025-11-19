@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.acme.tracker.deployment.SubsystemDeploymentProcessor;
 import jakarta.enterprise.concurrent.ManagedScheduledExecutorService;
-
 import org.jboss.as.controller.AbstractRuntimeOnlyHandler;
 import org.jboss.as.controller.AttributeDefinition;
 import org.jboss.as.controller.OperationContext;
@@ -42,10 +42,7 @@ import org.wildfly.subsystem.resource.operation.ResourceOperationRuntimeHandler;
 import org.wildfly.subsystem.service.ResourceServiceConfigurator;
 import org.wildfly.subsystem.service.ResourceServiceInstaller;
 import org.wildfly.subsystem.service.ServiceDependency;
-
-import com.acme.tracker.deployment.SubsystemDeploymentProcessor;
 import org.wildfly.subsystem.service.capability.CapabilityServiceInstaller;
-import org.wildfly.subsystem.service.capture.FunctionExecutorRegistry;
 import org.wildfly.subsystem.service.capture.ServiceValueExecutorRegistry;
 
 /**
@@ -53,10 +50,9 @@ import org.wildfly.subsystem.service.capture.ServiceValueExecutorRegistry;
  */
 public class SubsystemResourceDefinitionRegistrar implements org.wildfly.subsystem.resource.SubsystemResourceDefinitionRegistrar, Consumer<DeploymentProcessorTarget>, ResourceServiceConfigurator {
 
-    static final SubsystemResourceRegistration REGISTRATION = SubsystemResourceRegistration.of("tracker");
-
     public static final NullaryServiceDescriptor<TrackerService> SERVICE_DESCRIPTOR = NullaryServiceDescriptor.of("com.acme.tracker", TrackerService.class);
-    public static final RuntimeCapability<Void> TRACKER_CAPABILITY = RuntimeCapability.Builder.of(SERVICE_DESCRIPTOR).build();
+
+    static final RuntimeCapability<Void> TRACKER_CAPABILITY = RuntimeCapability.Builder.of(SERVICE_DESCRIPTOR).build();
 
     static final UnaryServiceDescriptor<ManagedScheduledExecutorService> EXECUTOR_SERVICE = UnaryServiceDescriptor.of("org.wildfly.ee.concurrent.scheduled-executor",
             ManagedScheduledExecutorService.class);
@@ -64,7 +60,7 @@ public class SubsystemResourceDefinitionRegistrar implements org.wildfly.subsyst
     static final CapabilityReferenceAttributeDefinition<ManagedScheduledExecutorService> EXECUTOR = new CapabilityReferenceAttributeDefinition.Builder<>("executor", CapabilityReference.builder(TRACKER_CAPABILITY, EXECUTOR_SERVICE).build())
             .build();
 
-    protected static final AttributeDefinition TICK =
+    static final AttributeDefinition TICK =
             new SimpleAttributeDefinitionBuilder("tick", ModelType.LONG)
                     .setAllowExpression(true)
                     .setFlags(AttributeAccess.Flag.RESTART_ALL_SERVICES)
@@ -73,17 +69,17 @@ public class SubsystemResourceDefinitionRegistrar implements org.wildfly.subsyst
                     .setMeasurementUnit(MeasurementUnit.SECONDS)
                     .setRequired(false)
                     .build();
-
-    protected static final AttributeDefinition DEPLOYMENTS =
+    static final AttributeDefinition DEPLOYMENTS =
             new SimpleAttributeDefinitionBuilder("deployments", ModelType.LONG)
                     .setFlags(AttributeAccess.Flag.RESTART_ALL_SERVICES)
                     .setRequired(false)
                     .setStorageRuntime()
                     .build();
+    static final SubsystemResourceRegistration REGISTRATION = SubsystemResourceRegistration.of("tracker");
 
     private static final ExceptionFunction<TrackerService, Integer, RuntimeException> TRACKED_DEPLOYMENTS = service -> service.deployments.get();
 
-    final ServiceValueExecutorRegistry<TrackerService> registry = ServiceValueExecutorRegistry.newInstance();
+    private final ServiceValueExecutorRegistry<TrackerService> registry = ServiceValueExecutorRegistry.newInstance();
 
     @Override
     public ManagementResourceRegistration register(SubsystemRegistration parent, ManagementResourceRegistrationContext context) {

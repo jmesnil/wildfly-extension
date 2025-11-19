@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,7 +16,6 @@
         <version.wildfly.galleon.plugins>8.0.2.Final</version.wildfly.galleon.plugins>
         <version.wildfly.common>2.0.1</version.wildfly.common>
         <version.wildfly.core>30.0.0.Final</version.wildfly.core>
-
 
 
         <!--Stay with JUnit 4, as "org.wildfly.core:wildfly-subsystem-test-framework" does not support JUnit 5-->

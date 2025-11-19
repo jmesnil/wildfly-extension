@@ -1,5 +1,7 @@
 package com.acme.tracker.testsuite;
 
+import java.io.IOException;
+
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -15,11 +17,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-
 /**
  * Arquillian test that verifies the tracker subsystem's deployments attribute.
- *
+ * <p>
  * This test:
  * 1. Verifies deployments count is 0 before deployment
  * 2. Deploys an empty WAR file
@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class TrackerDeploymentTestCase {
+public class DeploymentTestCase {
 
     private static final String DEPLOYMENT_NAME = "tracker-test";
 

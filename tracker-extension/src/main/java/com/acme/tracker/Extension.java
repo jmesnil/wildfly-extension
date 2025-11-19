@@ -5,14 +5,14 @@ import org.wildfly.subsystem.SubsystemPersistence;
 
 
 /**
- * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
+ * This class defines the extension.
  */
 public class Extension extends org.wildfly.subsystem.SubsystemExtension<SubsystemSchema> {
 
     public Extension() {
         super(SubsystemConfiguration.of(SubsystemResourceDefinitionRegistrar.REGISTRATION,
-                SubsystemModel.CURRENT,
-                SubsystemResourceDefinitionRegistrar::new),
+                        SubsystemModel.CURRENT,
+                        SubsystemResourceDefinitionRegistrar::new),
                 SubsystemPersistence.of(SubsystemSchema.CURRENT));
     }
 }
