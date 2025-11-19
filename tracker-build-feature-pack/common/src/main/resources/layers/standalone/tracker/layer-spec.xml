@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layer-spec xmlns="urn:jboss:galleon:layer-spec:2.0" name="tracker">
+    <props>
+        <prop name="org.wildfly.description" value="This layer can be used to provide the tracker."/>
+    </props>
     <dependencies>
         <layer name="ee-concurrency"/>
     </dependencies>

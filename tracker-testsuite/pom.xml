@@ -18,20 +18,14 @@
         <dependency>
             <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-managed</artifactId>
-            <version>5.1.0.Final</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.9.1.Final</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -54,6 +48,7 @@
                         </feature-pack>
                     </feature-packs>
                     <layers>
+                        <!-- layer provided by the feature pack -->
                         <layer>tracker</layer>
                         <!-- the jaxrs-server layer is added so that we have
                              a functional server to deploy test wars -->

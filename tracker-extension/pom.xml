@@ -13,83 +13,6 @@
 
     <name>tracker extension</name>
 
-    <build>
-        <!-- Maven will append the version to the finalName (which is the name
-           given to the generated war, and hence the context root) -->
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.release}</source>
-                    <target>${maven.compiler.release}</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.jboss.logging</groupId>
-                            <artifactId>jboss-logging-processor</artifactId>
-                            <version>3.0.4.Final</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${version.surefire.plugin}</version>
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.wildfly.core</groupId>
-                <artifactId>wildfly-subsystem</artifactId>
-                <version>${version.wildfly.core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.core</groupId>
-                <artifactId>wildfly-controller</artifactId>
-                <version>${version.wildfly.core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.core</groupId>
-                <artifactId>wildfly-subsystem-test</artifactId>
-                <type>pom</type>
-                <scope>test</scope>
-                <version>${version.wildfly.core}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <scope>test</scope>
-                <version>${version.junit}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging-annotations</artifactId>
-                <version>3.0.4.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging-processor</artifactId>
-                <version>3.0.4.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.kohsuke.metainf-services</groupId>
-                <artifactId>metainf-services</artifactId>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.enterprise.concurrent</groupId>
-                <artifactId>jakarta.enterprise.concurrent-api</artifactId>
-                <version>3.1.1</version>
-            </dependency>
-        </dependencies>
-
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.wildfly.core</groupId>
@@ -123,7 +46,33 @@
             <artifactId>jakarta.enterprise.concurrent-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
+    <build>
+        <!-- Maven will append the version to the finalName (which is the name
+           given to the generated war, and hence the context root) -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.compiler.plugin}</version>
+                <configuration>
+                    <source>${maven.compiler.release}</source>
+                    <target>${maven.compiler.release}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.jboss.logging</groupId>
+                            <artifactId>jboss-logging-processor</artifactId>
+                            <version>${version.jboss.logging.processor}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${version.surefire.plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

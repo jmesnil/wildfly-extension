@@ -18,23 +18,22 @@
     </properties>
 
     <dependencies>
+        <!-- resources to install in the feature pack -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>acme-feature-pack-common</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
-        <!-- Other feature pack dependencies -->
+        <!-- feature pack dependencies -->
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-galleon-pack</artifactId>
-            <version>${version.wildfly}</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-ee-galleon-pack</artifactId>
-            <version>${version.wildfly}</version>
             <type>zip</type>
         </dependency>
     </dependencies>
@@ -79,16 +78,11 @@
                 <artifactId>wildfly-galleon-maven-plugin</artifactId>
                 <version>${version.wildfly.galleon.plugins}</version>
                 <dependencies>
-                    <!--
-                        feature-spec-gen uses wildfly-embedded to generate the feature specs,
-                        hence the designated wildfly-embedded version must match the pack one
-                    -->
                     <dependency>
                         <groupId>org.wildfly.core</groupId>
                         <artifactId>wildfly-embedded</artifactId>
                         <version>${version.wildfly.core}</version>
                     </dependency>
-                    <!-- If you add a dependency on wildfly-embedded you need to bring your own transitives -->
                     <dependency>
                         <groupId>org.wildfly.common</groupId>
                         <artifactId>wildfly-common</artifactId>
@@ -97,15 +91,11 @@
                 </dependencies>
                 <executions>
                     <execution>
-                        <id>acme-feature-pack-build</id>
+                        <id>tracker-build-feature-pack</id>
                         <goals>
                             <goal>build-feature-pack</goal>
                         </goals>
                         <phase>prepare-package</phase>
-                        <configuration>
-                            <fork-embedded>false</fork-embedded>
-                            <release-name>acme-feature-pack</release-name>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
