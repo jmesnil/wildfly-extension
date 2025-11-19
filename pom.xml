@@ -34,7 +34,7 @@
 
     <modules>
         <module>tracker-extension</module>
-        <module>tracker-build-feature-pack</module>
+        <module>tracker-feature-pack</module>
         <module>tracker-testsuite</module>
     </modules>
 
